@@ -1,22 +1,20 @@
 <template>
     <div class="">
-      <MenssageSuccess :msg="msg" v-show="msg" />
       <button @click="showModal" class="open-modal-button">
-        <Icon icon="mdi:edit" class="formTableIcon"  />
+        <Icon class="icon-cancel"  icon="mdi:delete"/>
       </button>
       
         <div class="modal" :class="{ 'modal-visible': modalVisible }">
-          <MessageError :msg="msg" v-show="msg" />
           <div class="modal-content">
             <span @click="hideModal" class="close-modal-button">&times;</span>
-            <h2 class="titleBlack">Editar Contato</h2>
-          <form class="bodyModal" @submit.prevent="EditContacts">
+            <h2 >Deletar Contato</h2>
+          <form class="bodyModal" @submit.prevent="DeleteContacts">
             <div class="inputModal">
-              <input v-model="formattedPhoneNumber" type="text" placeholder="Número de Telefone" class="modal-input" maxlength="15">
+              <p class="textCenter">Certeza que deseja deletar o contato ?</p>
             </div>
             <div class="ButtonModal">
-                <div @click="hideModal" class="modal-button cancel-button">Cancelar</div>
-                <button type="submit" class="modal-button">Editar</button>
+                <div @click="hideModal" class="modal-button" title="Cancelar">Cancelar</div>
+                <button type="submit" class="modal-button cancel-button" title="Deletar">Deletar</button>
             </div>
           </form>
         </div>
@@ -26,70 +24,25 @@
   
   <script>
   import Mediator from "../service/Mediator";
-  import MessageError from "../MessageError.vue"
-  import MenssageSuccess from "../MessageSuccess.vue"
   import { Icon } from '@iconify/vue';
   export default {
     data() {
       return {
-        telefone: { numero: '' },
-        msg: null,
         modalVisible: false,
-        PhoneContact: {},
       };
     },
     components:{
       Icon,
-      MessageError,
-      MenssageSuccess
     },
-    computed: {
-    formattedPhoneNumber: {
-      get() {
-        return this.telefone.numero;
-      },
-      set(value) {
-        this.telefone.numero = this.formatPhoneNumber(value);
-      }
-    }
-  },
     methods: {
-      async EditContacts() {
+      async DeleteContacts() {
         try {
-        const phoneNumber = this.telefone.numero.replace(/\D/g, '');
-
-        if (!phoneNumber || isNaN(parseInt(phoneNumber))) {
-          this.msg = 'O número de telefone deve conter apenas dígitos numéricos ou está vazio!';
-          setTimeout(() => (this.msg = ''), 3000);
-        }else{
-          Mediator.notify(this.telefone, "EditPhone");
-          this.telefone = { numero: '' };
-          this.msg = 'Telefone adcionado com sucesso!';
-          setTimeout(() => (this.msg = ''), 3000);
+          Mediator.notify(null, "DeleteContact");
+          Mediator.notify(true, "reloadScreen");
           this.hideModal(); 
+        } catch (error) {
+          console.error('Erro ao adicionar contato:', error);
         }
-      } catch (error) {
-        console.error('Erro ao adicionar telefone:', error);
-        this.msg = 'Erro ao carregar contatos' + error;
-        setTimeout(() => (this.msg = ''), 3000);
-      }
-    },
-
-      formatPhoneNumber(phoneNumber) {
-        let cleaned = phoneNumber.replace(/\D/g, '');
-        cleaned = cleaned.slice(0, 11);
-        let formatted = '';
-        for (let i = 0; i < cleaned.length; i++) {
-          if (i === 0) {
-            formatted = '(';
-          } else if (i === 2) {
-            formatted += ') ';
-          } else if (i === 7) {
-            formatted += '-';
-          }
-          formatted += cleaned[i];
-        }
-        return formatted;
       },
 
       showModal() {
@@ -98,9 +51,6 @@
       hideModal() {
         this.modalVisible = false; 
       }
-    },
-    created() {
-        Mediator.notify(this, "initEditContact");
     },
   };
   </script>
@@ -133,15 +83,19 @@
     font-size: 28px;
     font-weight: bold;
   }
+  .textCenter{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    margin-bottom: 33px;
+  }
   
   .close-modal-button:hover,
   .close-modal-button:focus {
     color: black;
     text-decoration: none;
     cursor: pointer;
-  }
-  .titleBlack{
-    color:black;
   }
   
   .open-modal-button {
@@ -159,12 +113,11 @@
     margin-right: 10px;
   }
   .bodyModal{
-    height: 100%;
+    height: 75%;
     width: 98%;
     display: flex;
-    justify-content: center;
-    align-items: center;
     flex-direction: column;
+    justify-content: flex-end;
   }
   .inputModal{
     width: 100%;
@@ -177,7 +130,7 @@
   }
   .open-modal-button:hover {
     background-color: #007bff;
-    color: #fff
+    color: #fff;
   }
   
   /* Exibe o modal quando modalVisible é true */
@@ -200,10 +153,11 @@
     background-color: #007bff;
     color: #fff;
     border: none;
+    font-size: 15px;
     border-radius: 4px;
     cursor: pointer;
     margin-left: 20px;
-    margin-top: 30px;
+    margin-top: 38px;
 }
 
   

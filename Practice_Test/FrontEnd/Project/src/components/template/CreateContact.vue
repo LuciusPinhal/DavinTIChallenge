@@ -1,6 +1,6 @@
 <template>
     <div class="ModalFront">
-      <button @click="showModal" class="open-modal-button-create">Create Contato</button>
+      <button @click="showModal" class="open-modal-button-create">Criar contato</button>
       <MenssageSuccess :msg="msgS" v-show="msgS" />
       
       <div class="modal" :class="{ 'modal-visible': modalVisible }">
@@ -171,6 +171,7 @@
     background-color: #007bff;
     color: #fff;
     border: none;
+    font-size: 15px;
     border-radius: 4px;
     cursor: pointer;
     margin-left: 20px;

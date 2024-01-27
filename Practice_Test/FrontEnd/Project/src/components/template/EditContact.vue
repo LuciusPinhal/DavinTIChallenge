@@ -1,20 +1,22 @@
 <template>
     <div class="">
       <button @click="showModal" class="open-modal-button">
-        <Icon class="icon-cancel"  icon="mdi:delete"/>
+        <Icon icon="mdi:edit" class="formTableIcon"  />
       </button>
-  
+      
         <div class="modal" :class="{ 'modal-visible': modalVisible }">
+          <MessageError :msg="msg" v-show="msg" />
           <div class="modal-content">
             <span @click="hideModal" class="close-modal-button">&times;</span>
-            <h2 >Deletar Telefone</h2>
-          <form class="bodyModal" @submit.prevent="DeletePhone">
+            <h2>Editar Contato</h2>
+          <form class="bodyModal" @submit.prevent="EditContacts">
             <div class="inputModal">
-              <p class="textCenter">Certeza que deseja deletar o Telefone ?</p>
+                <input v-model="novoContato.nome" type="text" placeholder="Nome" class="modal-input">
+                <input v-model="novoContato.idade" type="number" placeholder="Idade" class="modal-input">
             </div>
             <div class="ButtonModal">
-                <div @click="hideModal" class="modal-button" title="Cancelar">Cancelar</div>
-                <button type="submit" class="modal-button cancel-button" title="Deletar">Deletar</button>
+                <div @click="hideModal" class="modal-button cancel-button">Cancelar</div>
+                <button type="submit" class="modal-button">Editar</button>
             </div>
           </form>
         </div>
@@ -24,20 +26,31 @@
   
   <script>
   import Mediator from "../service/Mediator";
+  import MessageError from "../MessageError.vue"
   import { Icon } from '@iconify/vue';
   export default {
     data() {
       return {
+        novoContato: { nome: '', idade: '' },
         modalVisible: false,
+        msg: null
       };
     },
     components:{
       Icon,
+      MessageError
     },
     methods: {
-      async DeletePhone() {
+      async EditContacts() {
         try {
-          Mediator.notify(null, "DeletePhone");
+          if (this.novoContato.idade >= 200 || isNaN(this.novoContato.idade)) {
+            this.msg = 'A idade inserida é inválida. Por favor, insira uma idade válida.';
+            setTimeout(() => (this.msg = ''), 3000);
+            this.novoContato = { nome: this.novoContato.nome, idade: '' };
+            return; 
+          }
+          Mediator.notify(this.novoContato, "EditContact");
+          this.novoContato = { nome: '', idade: '' };
           Mediator.notify(true, "reloadScreen");
           this.hideModal(); 
         } catch (error) {
@@ -52,10 +65,14 @@
         this.modalVisible = false; 
       }
     },
+    created() {
+        Mediator.notify(this, "initEditContact");
+    },
   };
   </script>
   
-<style scoped>
+  <style scoped>
+
   .modal {
     display: none;
     position: fixed; 
@@ -67,13 +84,11 @@
     overflow: auto; 
     background-color: rgba(0,0,0,0.4); 
   }
-  h2{
-    color:black;
-  }
+  
   .modal-content {
     background-color: #fefefe;
     margin: 14% auto;
-    padding: 32px 20px 0 20px;
+    padding: 40px 20px 0 20px;
     border: 1px solid #888;
     height: 300px;
     width: 400px;
@@ -84,12 +99,6 @@
     float: right;
     font-size: 28px;
     font-weight: bold;
-  }
-  .textCenter{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 42px;
   }
   
   .close-modal-button:hover,
@@ -104,7 +113,6 @@
     color: #007bff;
     border: 2px solid #007bff;
     transition: 0.5s;
-
     border-radius: 4px;
     cursor: pointer;
     height: 40px;
@@ -115,12 +123,12 @@
     margin-right: 10px;
   }
   .bodyModal{
-    height: 75%;
+    height: 100%;
     width: 98%;
-    text-align: center;
     display: flex;
+    justify-content: center;
+    align-items: center;
     flex-direction: column;
-    justify-content: flex-end;
   }
   .inputModal{
     width: 100%;
@@ -157,9 +165,10 @@
     color: #fff;
     border: none;
     border-radius: 4px;
+    font-size: 15px;
     cursor: pointer;
     margin-left: 20px;
-    margin-top: 27px;
+    margin-top: 30px;
 }
 
   

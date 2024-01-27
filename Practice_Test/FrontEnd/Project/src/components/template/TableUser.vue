@@ -5,7 +5,7 @@
     <div class="NavButton">
       <div class="search-container" >
         <Icon class="icon-search" icon="material-symbols:search" />
-        <input type="text" v-model="searchQuery"  class="input-with-icon" placeholder="Pesquisar Contato ...">
+        <input type="text" v-model="searchQuery"  class="input-with-icon" placeholder="Pesquisar contato ...">
       </div>
       <CreateContact/>
     </div>

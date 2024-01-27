@@ -203,6 +203,7 @@ export default {
   background-color: #007bff;
   color: #fff;
   border: none;
+  font-size: 15px;
   border-radius: 4px;
   cursor: pointer;
   margin-left: 20px;

@@ -2,7 +2,11 @@
   <div>
     <MessageError :msg="msg" v-show="msg" />
     <MenssageSuccess :msg="msgS" v-show="msgS" />
-    <div>
+    <div class="NavButton">
+      <div class="search-container" >
+        <Icon class="icon-search" icon="material-symbols:search" />
+        <input type="text" v-model="searchQuery"  class="input-with-icon" placeholder="Pesquisar Contato ...">
+      </div>
       <CreateContact/>
     </div>
     <table>
@@ -15,7 +19,8 @@
           <th></th>
         </tr>
       </thead>
-      <tbody v-for="contact in Contacts" :key="contact.id">
+      <!-- v-for="contact in Contacts" :key="contact.id" -->
+      <tbody v-for="contact in filteredContacts" :key="contact.id">
         <tr>
           <td style="width: 2px;">
             <div class="buttonsCrud flexstart">
@@ -108,6 +113,8 @@ export default {
       Phones: {}, 
       visiblePhones: {},
       PhoneContact: {},
+      searchQuery: '',
+      GetPhone:{}
     };
   },
   components: {
@@ -120,6 +127,19 @@ export default {
     Icon,
     MessageError,
     MenssageSuccess
+  },
+computed: {
+    filteredContacts() {
+    return this.Contacts.filter(contact => {
+      const idadeStr = contact.idade.toString();
+      const idStr = contact.id.toString();
+
+      return contact.nome.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+            idadeStr.includes(this.searchQuery.toLowerCase()) ||
+              idStr.includes(this.searchQuery.toLowerCase());
+      });
+    },
+
   },
   methods: {
     async loadContacts() {
@@ -142,6 +162,7 @@ export default {
         const phones = response.data;
         phones.sort((a, b) => a.id - b.id);
         this.Phones[contactId] = phones;
+        this.GetPhone = this.Phones[contactId];
         this.visiblePhones[contactId] = true;
 
         if(phones.length  == 0){
@@ -182,6 +203,7 @@ export default {
     toggleTelefone(contactId) {
       if (this.visiblePhones[contactId]) {
         this.visiblePhones[contactId] = false;
+        
       } else {
         this.loadPhoneContact(contactId);
       }
@@ -238,6 +260,7 @@ export default {
   },
   mounted() {
     this.loadContacts();
+   
   },
   created() {
     Mediator.notify(this, "initTable");
@@ -275,6 +298,27 @@ form {
   align-items: center;
   align-content: center;
   justify-content: flex-end;
+}
+.NavButton{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.input-with-icon {
+  padding-left: 30px !important;
+}
+.search-container {
+    background-color: white;
+    margin-bottom: -1px;
+    position: relative;
+}
+.icon-search {
+    position: absolute;
+    left: 10px;
+    top: 46%;
+    transform: translateY(-50%);
+    color: #007bff;
 }
 .titleCenterInModal{
   display: flex;

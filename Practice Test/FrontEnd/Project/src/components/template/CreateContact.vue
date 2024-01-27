@@ -44,6 +44,13 @@
     methods: {
       async addContacts() {
         try {
+          if (this.novoContato.idade > 200 || isNaN(this.novoContato.idade)) {
+            this.msg = 'A idade inserida é inválida. Por favor, insira uma idade válida.';
+            setTimeout(() => (this.msg = ''), 3000);
+            this.novoContato = { nome: this.novoContato.nome, idade: '' };
+            return; 
+          }
+
           await axios.post('http://localhost:3000/api/create/contact', this.novoContato);
           this.novoContato = { nome: '', idade: '' };
 
@@ -76,7 +83,6 @@
 .ModalFront{
     display: flex;
     justify-content: flex-end;
-    margin-bottom: 20px;
 }
   .modal {
     display: none;

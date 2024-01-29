@@ -4,9 +4,6 @@
 
 
 
-
-
-
 # Instruções de Execução 
 
 
@@ -20,14 +17,13 @@ git clone https://github.com/LuciusPinhal/DavinTIChallenge.git
 ```
 &nbsp;
 
-###  Execução Teste prático
+##  Execução Teste prático
 
 💡 Lembre-se de estar dentro da pasta Practice_Test
 
 &nbsp;
 
-* no diretorio do BackEnd, execute o servidor usando o seguinte comando:
-
+* no diretorio do Practice_Test, execute o servidor usando o seguinte comando:
 &nbsp;
 
 * Para rodar a pergunta de número 5
@@ -58,6 +54,8 @@ node ascendingOrder.js
 ##  Execução Teste Lógico
 
 💡 Lembre-se de estar dentro da pasta Logic_Test
+
+&nbsp;
 
 
 ##  ⚙️ Instale as dependências.

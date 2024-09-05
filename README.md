@@ -4,12 +4,15 @@
 
 
 
-https://github.com/user-attachments/assets/6dbc46ed-37b9-407a-8d97-3dd6f11962c1
+
+
+https://github.com/user-attachments/assets/43377e5b-5544-42a2-a7a8-5a616a33e129
+
+
 
 
 
 # Instruções de Execução 
-
 
 
 ##  🧑‍💻 Clone o repositório.
@@ -52,6 +55,7 @@ node ascendingOrder.js
 ```
 
 &nbsp;&nbsp;
+
 
 
 
@@ -141,6 +145,8 @@ Lembre-se de que, para testar a funcionalidade completa da aplicação, o Front-
 npm run serve
 ```
 &nbsp;&nbsp;
+
+[Veja o guia de criação do banco de dados](Practice_Test/BackEnd/CriandoBancoDeDados.md)
 
 
 💡 Isso iniciará o servidor de desenvolvimento Vue.js, e você poderá acessar a aplicação pelo navegador em http://localhost:8080 (a menos que a porta padrão tenha sido alterada).

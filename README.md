@@ -3,9 +3,16 @@
 &nbsp;&nbsp;&nbsp;
 
 
-# Instruções de Execução
 
-## 1. 🧑‍💻 Clone o repositório.
+https://github.com/user-attachments/assets/6dbc46ed-37b9-407a-8d97-3dd6f11962c1
+
+
+
+# Instruções de Execução 
+
+
+
+##  🧑‍💻 Clone o repositório.
 &nbsp;
    
 * Abra o terminal na pasta desejada e insira o seguinte comando para clonar o repositório:
@@ -14,7 +21,48 @@ git clone https://github.com/LuciusPinhal/DavinTIChallenge.git
 ```
 &nbsp;
 
-## 2. ⚙️ Instale as dependências.
+##  Execução Teste prático
+
+💡 Lembre-se de estar dentro da pasta Practice_Test
+
+&nbsp;
+
+* no diretorio do Practice_Test, execute o servidor usando o seguinte comando:
+&nbsp;
+
+* Para rodar a pergunta de número 5
+* * Pergunta de Número 5: <br> Escreva um algoritmo que leia 400 números e imprima o maior, o menor e a
+média dos números lidos.
+
+&nbsp;
+
+```bash
+node BiggestAndSmallestAndAverage.js
+```
+
+&nbsp;
+
+* Para rodar a pergunta de numero 6
+* *  Pergunta de Número 6: <br> Escreva um algoritmo que leia seis números e os imprima em ordem crescente.
+    
+&nbsp;
+
+```bash
+node ascendingOrder.js
+```
+
+&nbsp;&nbsp;
+
+
+
+##  Execução Teste Lógico
+
+💡 Lembre-se de estar dentro da pasta Logic_Test
+
+&nbsp;
+
+
+##  ⚙️ Instale as dependências.
 &nbsp;
 
 ### 🚀 Back-End (Node.js)
@@ -53,7 +101,7 @@ npm install
 
 
 
-## 3. 🌐 Execute do servidor Front-End e Back-End.
+##  🌐 Execute do servidor Front-End e Back-End.
 
 
 ### 🚀 Iniciando o Back-End (Node.js)
